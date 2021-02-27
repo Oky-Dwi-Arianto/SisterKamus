@@ -20,30 +20,27 @@ import java.util.logging.Logger;
  */
 public class TB_kamus {
     Connection con;
+    
     public TB_kamus(Connection con)
     {
         this.con = con;
     }
     
-     public List<Kamus> getAllKata(String cari){
-      List<Kamus> listKata = new ArrayList<>();
-        try {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM tb_Kamus "
-                    + "WHERE Indonesia LIKE '%" + cari + "%'");
+     public String getAllKata(String cari, String bahasaAwal, String bahasaHasil){
+         String hasil = "";
+  
+         try {
+            PreparedStatement ps = con.prepareStatement("SELECT "+bahasaHasil+" FROM tb_Kamus "
+                    + "WHERE "+bahasaAwal+" LIKE '%" + cari + "%'");
              ResultSet rs = ps.executeQuery();
              while  (rs.next())
              {
-                Kamus kamus = new Kamus();
-                kamus.setIndonesia(rs.getString(1));
-                kamus.setInggris(rs.getString(2));
-                kamus.setJawa(rs.getString(3));
-                
-                listKata.add(kamus);
+                 hasil = rs.getString(1);
              }
         } catch (SQLException ex) {
             Logger.getLogger(TB_kamus.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listKata;
+        return hasil;
         
     }
     public List<Kamus> getAllKata(){
@@ -68,8 +65,8 @@ public class TB_kamus {
     }
     public boolean insertKata(Kamus kamus) {
         try {
-            PreparedStatement ps = con.prepareStatement("INSERT INTO tb_Kamus (Indonesia, Inggris, Jawa) "
-                    + "VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO tb_Kamus (indonesia, inggris, jawa) "
+                    + "VALUES (?, ?, ?)");
             ps.setString(1, kamus.getIndonesia());
             ps.setString(2, kamus.getInggris());
             ps.setString(3, kamus.getJawa());

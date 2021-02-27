@@ -13,5 +13,5 @@ import java.rmi.RemoteException;
  * @author acer
  */
 public interface TranslateInterface extends Remote{
-    public String translateKata(int kodeBahasaAsal, int kodeBahasaHasil, String kata) throws RemoteException;
+    public String translateKata(String bahasaAsal, String bahasaHasil, String kata) throws RemoteException;
 }

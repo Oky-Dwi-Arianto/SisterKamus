@@ -8,21 +8,29 @@ package server;
 import java.rmi.server.UnicastRemoteObject;
 import translate.TranslateInterface;
 import java.rmi.RemoteException;
+import java.sql.Connection;
+import translate.DB_kamus;
+import translate.TB_kamus;
 /**
  *
  * @author acer
  */
 public class TranslateImplementasi extends UnicastRemoteObject implements TranslateInterface{
-    
+    Connection con = new DB_kamus().getConnection();
+
     public TranslateImplementasi() throws RemoteException{
-        
+    
     }
 
     @Override
-    public String translateKata(int kodeBahasaAsal, int kodeBahasaHasil, String kata) throws RemoteException {
-        System.out.println("Client translate dari bahasa "+kodeBahasaAsal+" ke bahasa "+kodeBahasaHasil+""
+    public String translateKata(String bahasaAwal, String bahasaHasil, String kata) throws RemoteException {
+        System.out.println("Client translate dari bahasa "+bahasaAwal+" ke bahasa "+bahasaHasil+""
                 + "dengan kata yang di translate "+kata);
-        return kata;
+        
+        
+        String hasil;
+        hasil = new TB_kamus(con).getAllKata(kata, bahasaAwal, bahasaHasil);
+        return hasil;
     }
     
 }
