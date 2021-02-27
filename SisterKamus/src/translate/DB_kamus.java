@@ -22,15 +22,15 @@ public class DB_kamus {
     public String password = "";
     public Connection con;
     
-     public db_kamus()
+     public DB_kamus()
     {
         try {
             Class.forName(driver);
             con = DriverManager.getConnection(url, username, password);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(db_kamus.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DB_kamus.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(db_kamus.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DB_kamus.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -39,6 +39,6 @@ public class DB_kamus {
         return con;
     }
     public static void main(String[] args) {
-        System.out.println(new db_kamus().getConnection());
+        System.out.println(new DB_kamus().getConnection());
     }
 }
