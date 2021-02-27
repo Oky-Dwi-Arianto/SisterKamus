@@ -137,15 +137,13 @@ public class HomeClient extends javax.swing.JFrame {
          
          TranslateInterface translateInterface = (TranslateInterface) Naming.lookup("rmi://127.0.0.1:190/TranslateKata");
          System.out.println("tersambung");
-        
          respons = translateInterface.translateKata(bahasaAwal, bahasaHasil, kata);
-          
          textAreaHasil.setText(respons);
         
     }
     
     private void comboBoxHasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxHasilActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_comboBoxHasilActionPerformed
 
     /**

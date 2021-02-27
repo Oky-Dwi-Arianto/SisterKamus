@@ -5,17 +5,36 @@
  */
 package client;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.sql.Connection;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import translate.DB_kamus;
+import translate.Kamus;
+import translate.TB_kamus;
+import translate.TranslateInterface;
+
 /**
  *
  * @author okyda
  */
 public class LihatData extends javax.swing.JFrame {
 
-    /**
-     * Creates new form LihatData
-     */
-    public LihatData() {
+    DefaultTableModel model;
+    Connection con = new DB_kamus().getConnection();
+    public LihatData(){
         initComponents();
+        
+        String[] kolom = {"Indonesia", "Inggris", "Jawa"};
+        model = new DefaultTableModel(kolom, 0);
+        tabelKamus.setModel(model);
+        printTabel();
     }
 
     /**
@@ -27,19 +46,29 @@ public class LihatData extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jEditorPane1 = new javax.swing.JEditorPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tabelKamus = new javax.swing.JTable();
+        buttonTambah = new javax.swing.JButton();
+        buttonUpdate = new javax.swing.JButton();
+        buttonHapus = new javax.swing.JButton();
+        buttonKeluar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        textFieldCari = new javax.swing.JTextField();
+        buttonCari = new javax.swing.JButton();
+        textFieldIndonesia = new javax.swing.JTextField();
+        textFieldInggris = new javax.swing.JTextField();
+        textFieldJawa = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+
+        jScrollPane2.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelKamus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -50,71 +79,180 @@ public class LihatData extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelKamus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelKamusMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelKamus);
 
-        jButton1.setText("Tambah");
+        buttonTambah.setText("Tambah");
+        buttonTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTambahActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Update");
+        buttonUpdate.setText("Update");
+        buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Delete");
+        buttonHapus.setText("Hapus");
+        buttonHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHapusActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Keluar");
+        buttonKeluar.setText("Keluar");
+        buttonKeluar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonKeluarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Lhat Data Kamus");
 
-        jTextField1.setText("Cari");
+        textFieldCari.setText("Cari");
 
-        jButton5.setText("Cari");
+        buttonCari.setText("Cari");
+
+        jLabel2.setText("Indonesia");
+
+        jLabel3.setText("Inggris");
+
+        jLabel4.setText("Jawa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(260, 260, 260))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(75, 75, 75)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(64, 64, 64)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton5)))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buttonKeluar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel2))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(textFieldIndonesia)
+                                        .addComponent(textFieldJawa, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                                        .addComponent(textFieldInggris)))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(buttonTambah)
+                        .addGap(15, 15, 15)
+                        .addComponent(buttonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCari)
+                        .addGap(25, 25, 25))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addContainerGap()
                 .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldIndonesia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldInggris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addComponent(textFieldJawa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(buttonCari)
+                    .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonHapus)
+                    .addComponent(buttonUpdate)
+                    .addComponent(buttonTambah))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonKeluar)
+                .addGap(14, 14, 14))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKeluarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_buttonKeluarActionPerformed
+
+    private void buttonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahActionPerformed
+        Kamus kamus = new Kamus();
+        kamus.setIndonesia(textFieldIndonesia.getText());
+        kamus.setInggris(textFieldInggris.getText());
+        kamus.setJawa(textFieldJawa.getText());
+        try{
+            new TB_kamus(con).insertKata(kamus);
+            printTabel();
+            reset();
+        }catch(Exception e){
+            System.out.println("gagal tambah data");
+        }
+   
+    }//GEN-LAST:event_buttonTambahActionPerformed
+
+    private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
+    Kamus kamus = new Kamus();
+        kamus.setIndonesia(textFieldIndonesia.getText());
+        kamus.setInggris(textFieldInggris.getText());
+        kamus.setJawa(textFieldJawa.getText());
+        try{
+            new TB_kamus(con).updateKata(kamus, textFieldIndonesia.getText());
+            printTabel();
+            reset();
+        }catch(Exception e){
+            System.out.println("gagal tambah data");
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonUpdateActionPerformed
+
+    private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
+        try{
+            new TB_kamus(con).deleteKata(textFieldIndonesia.getText());
+            printTabel();
+            reset();
+        }catch(Exception e){
+            System.out.println("gagal tambah data");
+        }    
+    }//GEN-LAST:event_buttonHapusActionPerformed
+
+    private void tabelKamusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelKamusMouseClicked
+        int n = tabelKamus.getSelectedRow();
+        
+        if(n>-1){
+            textFieldIndonesia.setText(model.getValueAt(n, 0).toString());
+            textFieldInggris.setText(model.getValueAt(n, 1).toString());
+            textFieldJawa.setText(model.getValueAt(n, 2).toString());
+        }
+    }//GEN-LAST:event_tabelKamusMouseClicked
 
     /**
      * @param args the command line arguments
@@ -146,20 +284,49 @@ public class LihatData extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LihatData().setVisible(true);
+                    new LihatData().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton buttonCari;
+    private javax.swing.JButton buttonHapus;
+    private javax.swing.JButton buttonKeluar;
+    private javax.swing.JButton buttonTambah;
+    private javax.swing.JButton buttonUpdate;
+    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tabelKamus;
+    private javax.swing.JTextField textFieldCari;
+    private javax.swing.JTextField textFieldIndonesia;
+    private javax.swing.JTextField textFieldInggris;
+    private javax.swing.JTextField textFieldJawa;
     // End of variables declaration//GEN-END:variables
+
+    private void printTabel(){
+        int baris = tabelKamus.getRowCount();
+        
+        List<Kamus> listKata = new TB_kamus(con).getAllKata();
+        for(int i=0;i<baris;i++){
+            model.removeRow(0);
+        }        
+       
+        for(int j=0;j<listKata.size();j++){
+            String kata[] = {listKata.get(j).getIndonesia(),listKata.get(j).getInggris(),listKata.get(j).getJawa()};
+            model.addRow(kata);
+        }
+        
+    }
+    
+    private void reset(){
+        textFieldIndonesia.setText("");
+        textFieldInggris.setText("");
+        textFieldJawa.setText("");
+    }
 }

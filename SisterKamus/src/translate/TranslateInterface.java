@@ -7,6 +7,7 @@ package translate;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,5 @@ import java.rmi.RemoteException;
  */
 public interface TranslateInterface extends Remote{
     public String translateKata(String bahasaAsal, String bahasaHasil, String kata) throws RemoteException;
+   // public List<Kamus> getAllKata();
 }
