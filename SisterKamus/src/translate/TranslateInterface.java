@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface TranslateInterface extends Remote{
     public String translateKata(String bahasaAsal, String bahasaHasil, String kata) throws RemoteException;
-   // public List<Kamus> getAllKata();
+   
 }

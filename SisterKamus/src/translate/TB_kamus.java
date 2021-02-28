@@ -51,7 +51,7 @@ public class TB_kamus {
              while  (rs.next())
              {
                 Kamus kamus = new Kamus();
-                 kamus.setIndonesia(rs.getString(1));
+                kamus.setIndonesia(rs.getString(1));
                 kamus.setInggris(rs.getString(2));
                 kamus.setJawa(rs.getString(3));
                 
@@ -71,9 +71,11 @@ public class TB_kamus {
             ps.setString(2, kamus.getInggris());
             ps.setString(3, kamus.getJawa());
 
-            
-            if (ps.executeUpdate() > 0) {
+            System.out.println("bisa");
+            if (ps.executeUpdate() > 0) 
+            {System.out.println("bisa nih bang");
                 return true;
+                
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

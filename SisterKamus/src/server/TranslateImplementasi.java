@@ -31,10 +31,5 @@ public class TranslateImplementasi extends UnicastRemoteObject implements Transl
         return hasil;
     }
 
-//    @Override
-//    public List<Kamus> getAllKata() {
-//        List<Kamus> listKata = new TB_kamus(con).getAllKata();
-//        return listKata;
-//    }
-    
+
 }

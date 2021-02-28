@@ -19,7 +19,9 @@ public class Server {
         Registry reg = LocateRegistry.createRegistry(190);
         TranslateImplementasi translateImplementasi = new TranslateImplementasi();
         reg.rebind("TranslateKata", translateImplementasi);
-        System.out.println("Server Telah Berjalan");
         
+        CRUDImplementasi admin = new CRUDImplementasi();
+        reg.rebind("Admin", admin);
+        System.out.println("Server Telah Berjalan");
     }
 }

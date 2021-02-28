@@ -15,6 +15,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import translate.CRUDInterface;
 import translate.DB_kamus;
 import translate.Kamus;
 import translate.TB_kamus;
@@ -215,7 +216,7 @@ public class LihatData extends javax.swing.JFrame {
             printTabel();
             reset();
         }catch(Exception e){
-            System.out.println("gagal tambah data");
+            System.out.println(e);
         }
    
     }//GEN-LAST:event_buttonTambahActionPerformed
@@ -240,7 +241,7 @@ public class LihatData extends javax.swing.JFrame {
             printTabel();
             reset();
         }catch(Exception e){
-            System.out.println("gagal tambah data");
+            System.out.println(e);
         }    
     }//GEN-LAST:event_buttonHapusActionPerformed
 
