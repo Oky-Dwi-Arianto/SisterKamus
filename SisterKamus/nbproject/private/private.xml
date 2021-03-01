@@ -5,8 +5,11 @@
         <group>
             <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/translate/CRUDInterface.java</file>
             <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/client/HomeClient.java</file>
+            <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/translate/TranslateInterface.java</file>
+            <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/translate/TB_kamus.java</file>
             <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/server/Server.java</file>
             <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/client/LihatData.java</file>
+            <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/translate/Kamus.java</file>
             <file>file:/D:/Kuliah/Tugas/Sister/SisterKamus/src/server/CRUDImplementasi.java</file>
         </group>
     </open-files>

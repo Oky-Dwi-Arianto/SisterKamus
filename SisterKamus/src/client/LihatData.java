@@ -212,7 +212,7 @@ public class LihatData extends javax.swing.JFrame {
         kamus.setInggris(textFieldInggris.getText());
         kamus.setJawa(textFieldJawa.getText());
         try{
-            new TB_kamus(con).insertKata(kamus);
+            insertData(kamus);
             printTabel();
             reset();
         }catch(Exception e){
@@ -237,7 +237,7 @@ public class LihatData extends javax.swing.JFrame {
 
     private void buttonHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusActionPerformed
         try{
-            new TB_kamus(con).deleteKata(textFieldIndonesia.getText());
+            hapusData(textFieldIndonesia.getText());
             printTabel();
             reset();
         }catch(Exception e){
@@ -323,6 +323,18 @@ public class LihatData extends javax.swing.JFrame {
             model.addRow(kata);
         }
         
+    }
+    
+    private void hapusData(String kata) throws NotBoundException, MalformedURLException, RemoteException{
+        CRUDInterface admin = (CRUDInterface) Naming.lookup("rmi://127.0.0.1:190/Admin");
+        System.out.println("tersambung");
+        admin.deleteKata(kata);
+    }
+    
+    private void insertData(Kamus kamus) throws NotBoundException, MalformedURLException, RemoteException{
+        CRUDInterface admin = (CRUDInterface) Naming.lookup("rmi://127.0.0.1:190/Admin");
+        System.out.println("tersambung");
+        admin.insertKata(kamus);
     }
     
     private void reset(){
