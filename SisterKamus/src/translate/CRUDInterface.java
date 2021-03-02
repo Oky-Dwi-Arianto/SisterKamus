@@ -13,6 +13,6 @@ import java.util.List;
 public interface CRUDInterface extends Remote{
     public List<Kamus> getAllKata() throws RemoteException;
     public Boolean insertKata(Kamus kamus) throws RemoteException;
-    public Boolean updateKata() throws RemoteException;
+    public Boolean updateKata(Kamus kamus, String kata) throws RemoteException;
     public Boolean deleteKata(String kata) throws RemoteException;
 }

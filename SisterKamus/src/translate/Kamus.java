@@ -5,11 +5,12 @@
  */
 package translate;
 
+import java.io.Serializable;
 /**
  *
  * @author acer
  */
-public class Kamus {
+public class Kamus implements Serializable{
     private String indonesia;
     private String inggris;
     private String jawa;

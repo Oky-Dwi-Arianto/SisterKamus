@@ -29,7 +29,7 @@ public class LihatData extends javax.swing.JFrame {
 
     DefaultTableModel model;
     Connection con = new DB_kamus().getConnection();
-    public LihatData(){
+    public LihatData() throws NotBoundException, MalformedURLException, RemoteException{
         initComponents();
         
         String[] kolom = {"Indonesia", "Inggris", "Jawa"};
@@ -120,6 +120,11 @@ public class LihatData extends javax.swing.JFrame {
         textFieldCari.setText("Cari");
 
         buttonCari.setText("Cari");
+        buttonCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCariActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Indonesia");
 
@@ -227,7 +232,7 @@ public class LihatData extends javax.swing.JFrame {
         kamus.setInggris(textFieldInggris.getText());
         kamus.setJawa(textFieldJawa.getText());
         try{
-            new TB_kamus(con).updateKata(kamus, textFieldIndonesia.getText());
+            updateData(kamus, textFieldIndonesia.getText());
             printTabel();
             reset();
         }catch(Exception e){
@@ -254,6 +259,10 @@ public class LihatData extends javax.swing.JFrame {
             textFieldJawa.setText(model.getValueAt(n, 2).toString());
         }
     }//GEN-LAST:event_tabelKamusMouseClicked
+
+    private void buttonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCariActionPerformed
+        
+    }//GEN-LAST:event_buttonCariActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,7 +294,15 @@ public class LihatData extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
                     new LihatData().setVisible(true);
+                } catch (NotBoundException ex) {
+                    Logger.getLogger(LihatData.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(LihatData.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(LihatData.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -310,10 +327,10 @@ public class LihatData extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldJawa;
     // End of variables declaration//GEN-END:variables
 
-    private void printTabel(){
+    private void printTabel() throws NotBoundException, MalformedURLException, RemoteException, RemoteException{
         int baris = tabelKamus.getRowCount();
-        
-        List<Kamus> listKata = new TB_kamus(con).getAllKata();
+        CRUDInterface admin = (CRUDInterface) Naming.lookup("rmi://127.0.0.1:190/Admin");
+        List<Kamus> listKata = admin.getAllKata();
         for(int i=0;i<baris;i++){
             model.removeRow(0);
         }        
@@ -337,6 +354,12 @@ public class LihatData extends javax.swing.JFrame {
         admin.insertKata(kamus);
     }
     
+    private void updateData(Kamus kamus, String kata) throws NotBoundException, MalformedURLException, RemoteException{
+        CRUDInterface admin = (CRUDInterface) Naming.lookup("rmi://127.0.0.1:190/Admin");
+        System.out.println("tersambung");
+        admin.updateKata(kamus, kata);
+    }
+
     private void reset(){
         textFieldIndonesia.setText("");
         textFieldInggris.setText("");

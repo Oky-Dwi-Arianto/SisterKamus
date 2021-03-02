@@ -33,19 +33,20 @@ public class CRUDImplementasi extends UnicastRemoteObject implements CRUDInterfa
   
     @Override
     public Boolean insertKata(Kamus kamus) throws RemoteException {
-        System.out.println("wwoowo");
         boolean hasil = new TB_kamus(con).insertKata(kamus);
         return hasil;
         
     }
 
     @Override
-    public Boolean updateKata() throws RemoteException {
-        return true;//To change body of generated methods, choose Tools | Templates.
+    public Boolean updateKata(Kamus kamus, String kata) throws RemoteException {
+        boolean hasil = new TB_kamus(con).updateKata(kamus, kata);
+        return hasil;
     }
 
     @Override
     public Boolean deleteKata(String kata) throws RemoteException {
+        System.out.println("sdasd");
         boolean hasil = new TB_kamus(con).deleteKata(kata);
         return hasil;
     }
