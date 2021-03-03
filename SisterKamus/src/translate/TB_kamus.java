@@ -113,4 +113,22 @@ public class TB_kamus {
         }
         return false;
     }
+    
+    public boolean getByKata(String kata) {
+        try {
+            PreparedStatement ps = con.prepareStatement("SELECT FROM tb_Kamus "
+                    + "WHERE indonesia='" + kata + "'");
+                  ps.setString(1, kata);
+                  ResultSet result = ps.executeQuery();
+                  Kamus kamus = null;
+                  if(result.next()){
+                      kamus.setIndonesia(result.getString("indonesia"));
+                      System.out.println("masuk");
+            }
+                  return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }

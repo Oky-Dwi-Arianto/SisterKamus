@@ -5,6 +5,12 @@
  */
 package client;
 
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author acer
@@ -97,7 +103,15 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(user.getText().equals("admin")&&password.getText().equals("admin")){
             this.dispose();
-            new LihatData().setVisible(true);
+            try {
+                new LihatData().setVisible(true);
+            } catch (NotBoundException ex) {
+                Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (MalformedURLException ex) {
+                Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (RemoteException ex) {
+                Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

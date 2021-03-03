@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import translate.CRUDInterface;
 import translate.DB_kamus;
 import translate.Kamus;
@@ -57,13 +59,13 @@ public class LihatData extends javax.swing.JFrame {
         buttonKeluar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         textFieldCari = new javax.swing.JTextField();
-        buttonCari = new javax.swing.JButton();
         textFieldIndonesia = new javax.swing.JTextField();
         textFieldInggris = new javax.swing.JTextField();
         textFieldJawa = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         jScrollPane2.setViewportView(jEditorPane1);
 
@@ -117,12 +119,14 @@ public class LihatData extends javax.swing.JFrame {
 
         jLabel1.setText("Lhat Data Kamus");
 
-        textFieldCari.setText("Cari");
-
-        buttonCari.setText("Cari");
-        buttonCari.addActionListener(new java.awt.event.ActionListener() {
+        textFieldCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCariActionPerformed(evt);
+                textFieldCariActionPerformed(evt);
+            }
+        });
+        textFieldCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldCariKeyPressed(evt);
             }
         });
 
@@ -131,6 +135,8 @@ public class LihatData extends javax.swing.JFrame {
         jLabel3.setText("Inggris");
 
         jLabel4.setText("Jawa");
+
+        jLabel5.setText("Cari");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,11 +172,11 @@ public class LihatData extends javax.swing.JFrame {
                         .addComponent(buttonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCari)
-                        .addGap(25, 25, 25))))
+                        .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,11 +198,11 @@ public class LihatData extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCari)
                     .addComponent(textFieldCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonHapus)
                     .addComponent(buttonUpdate)
-                    .addComponent(buttonTambah))
+                    .addComponent(buttonTambah)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -260,9 +266,16 @@ public class LihatData extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tabelKamusMouseClicked
 
-    private void buttonCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCariActionPerformed
-        
-    }//GEN-LAST:event_buttonCariActionPerformed
+    private void textFieldCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldCariActionPerformed
+
+    private void textFieldCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldCariKeyPressed
+        DefaultTableModel model = (DefaultTableModel)tabelKamus.getModel();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        tabelKamus.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(textFieldCari.getText().trim()));
+    }//GEN-LAST:event_textFieldCariKeyPressed
 
     /**
      * @param args the command line arguments
@@ -308,7 +321,6 @@ public class LihatData extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCari;
     private javax.swing.JButton buttonHapus;
     private javax.swing.JButton buttonKeluar;
     private javax.swing.JButton buttonTambah;
@@ -318,6 +330,7 @@ public class LihatData extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelKamus;
